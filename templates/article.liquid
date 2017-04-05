@@ -1,0 +1,67 @@
+<!--{% if settings.breadcrumbs_enabled == true or settings.social_links_page_show_tw == true or settings.social_links_page_show_fb == true or settings.social_links_page_show_goog == true %}
+<div id="breadcrumbs">
+    <span class="text">
+        {% if settings.breadcrumbs_enabled == true %}
+        <a href="/" title="{{ 'general.breadcrumbs.home' | t }}">{{ 'general.breadcrumbs.home' | t }}</a>
+        &raquo;
+    	<a href="{{ page.url }}">{{ page.title }}</a>
+        {% endif %}
+    </span>
+    {% include 'sociallinks' with page %}
+</div>
+{% endif %}-->
+<div id="content">
+<!--content sction--> 
+<div class="inner_wrap articl">
+	<div class="container">
+    	<div class="row">
+        	<div class="col-sm-7">
+            	<div class="content_lt">
+            	   <h1>{{ article.title }}</h1>  
+                  {% if article.image %}
+                                <div class="blog_img">
+                                    {{ article.image | img_url: 'large' | img_tag: article.image.alt | link_to: article.url }}
+                                </div>                            
+                            {% endif %}
+                </div>
+                <div class="blog-details line">
+                   {% comment %}{{ 'blogs.article.author_html' | t: author: article.author }}{% endcomment %} 
+                  {% assign date = article.published_at | date: format: 'month_date_year' %}
+                  {{ 'blogs.article.date_html' | t: date: date }} 
+                  {% if blog.comments_enabled? and article.comments_count > 0 %}
+                  <a href="{{article.url}}#comments"><em>{{ 'blogs.comments.comments_with_count' | t: count: article.comments_count }}</em></a>
+                  {% endif %}
+                </div>
+                {{ article.content }}
+                {% include 'relatedblogs' %} 
+                {% if article.tags.size > 0 %}
+                  <div class="articletags">
+                    {{ 'blogs.tags.label' | t }} &raquo;
+                    <ul>
+                      {% for tag in article.tags %} 
+                      <li>
+                        <a href="{{ blog.url }}/tagged/{{ tag | handle }}">{{ tag }}{% if forloop.last == false %},{% endif %}</a>
+                      </li>
+                      {% endfor %}
+                    </ul>
+                  </div>
+                  {% endif %}
+                <div class="nextprev">
+                  {% if blog.next_article %}
+                    {% capture next_html %}<span class="next">{{ 'blogs.article.next' | t }} &raquo;</span>{% endcapture %}
+                    {{ next_html | link_to: blog.next_article }}
+                  {% endif %}
+                  {% if blog.previous_article %}
+                    {% capture previous_html %}<span class="previous">&laquo; {{ 'blogs.article.previous' | t }}</span>{% endcapture %}
+                    {{ previous_html | link_to: blog.previous_article }}
+                  {% endif %}
+                </div>
+            </div>
+            <div class="col-sm-5">
+            	{% include 'side-blog' %}
+            </div>
+        </div>
+    </div>
+</div>
+<!--content sction--> 
+</div>

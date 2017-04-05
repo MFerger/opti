@@ -1,0 +1,137 @@
+{% assign collurl = collection.url %}
+{% if collection.handle == 'all' %}
+    {% assign collurl = '/collections/all' %}
+{% endif %}
+{% unless collection.handle %}
+	{% comment %} Title needs unescaping as it replaces html entities {% endcomment %}
+	{% capture collurl %}/collections/vendors?q={{ collection.title | replace: "&#39;", '%27' | replace: '&amp;', '%26' | replace: ' ', '+' }}{% endcapture %}
+{% endunless %}
+
+<div class="collection-page slider_wrap">
+	<div class="slider_main container">
+      <div class="row">      	
+      	<div class="col-md-6">
+          <div class="collection_banner_content">
+            <div class="sldr_cont">
+            {% if collection.handle == 'all' %}
+            	{{settings.collection_page_banner_content}}            	           	
+            {% else %}
+            	<h1>{{ collection.title }}</h1>
+                {% if collection.description != empty %}            
+                    {{ collection.description }}
+               	{% endif %}
+            {% endif %}  
+            </div> 
+             
+          </div>
+        </div>
+        <div class="col-md-6">          
+         <!--  <div class="collection-image">
+          	<img src="{% if collection.image %}{{ collection.image | img_url: 'master' }}{% else %}{{ 'product_page_banner.png' | asset_url }}{% endif %}">
+          </div>-->
+          <div class="col-sm-6 col-xs-12 bxspcng">
+            
+           <a href="https://www.optilingo.com/products/assimil-spanish-with-ease-super-pack"> <img src="{% if collection.image %}{{ collection.image | img_url: 'master' }}{% else %}{{ 'sp-Lng.png' | asset_url }}{% endif %}">
+            </a> </div>
+          
+          <div class="col-sm-6 col-xs-12 bxspcng">
+           <a href="https://www.optilingo.com/products/assimil-japanese-with-ease-super-pack"> <img src="{% if collection.image %}{{ collection.image | img_url: 'master' }}{% else %}{{ 'jp-Lng.png' | asset_url }}{% endif %}">
+            </a> </div>
+          
+          
+          
+          <div class="col-sm-6 col-xs-12 bxspcng">
+            <a href="https://www.optilingo.com/products/assimil-french-with-ease-super-pack"> <img src="{% if collection.image %}{{ collection.image | img_url: 'master' }}{% else %}{{ 'fr-Lng.png' | asset_url }}{% endif %}">
+            </a></div>
+          
+          <div class="col-sm-6 col-xs-12 bxspcng">
+           <a href="https://www.optilingo.com/products/assimil-hebrew-with-ease-super-pack">  <img src="{% if collection.image %}{{ collection.image | img_url: 'master' }}{% else %}{{ 'hb-Lng.png' | asset_url }}{% endif %}">
+            </a> </div>
+          
+          
+          <div class="col-sm-6 col-xs-12 bxspcng">
+           <a href="https://www.optilingo.com/products/assimil-italian-with-ease-super-pack">  <img src="{% if collection.image %}{{ collection.image | img_url: 'master' }}{% else %}{{ 'it-Lng.png' | asset_url }}{% endif %}">
+            </a></div>
+          
+          <div class="col-sm-6 col-xs-12 bxspcng">
+            <a href="https://www.optilingo.com/products/assimil-arabic-with-ease-super-pack">  <img src="{% if collection.image %}{{ collection.image | img_url: 'master' }}{% else %}{{ 'arb-Lng.png' | asset_url }}{% endif %}">
+            </a> </div>
+          
+          
+          <div class="col-sm-6 col-xs-12 bxspcng">
+            <a href="https://www.optilingo.com/products/assimil-german-with-ease-super-pack"> <img src="{% if collection.image %}{{ collection.image | img_url: 'master' }}{% else %}{{ 'ger-Lng.png' | asset_url }}{% endif %}">
+            </a> </div>
+          
+          <div class="col-sm-6 col-xs-12 bxspcng">
+            <a href="https://www.optilingo.com/products/assimil-portuguese-with-ease-super-pack"> <img src="{% if collection.image %}{{ collection.image | img_url: 'master' }}{% else %}{{ 'brz-Lng.png' | asset_url }}{% endif %}">
+            </a> </div>
+          
+          <div class="col-sm-6 col-xs-12 bxspcng">
+           <a href="https://www.optilingo.com/products/assimil-chinese-with-ease-super-pack">  <img src="{% if collection.image %}{{ collection.image | img_url: 'master' }}{% else %}{{ 'chines-Lng.png' | asset_url }}{% endif %}">
+            </a> </div>
+          
+          <div class="col-sm-6 col-xs-12 bxspcng">
+           <a href="https://www.optilingo.com/products/assimil-russian-with-ease-super-pack">  <img src="{% if collection.image %}{{ collection.image | img_url: 'master' }}{% else %}{{ 'russ-Lng.png' | asset_url }}{% endif %}">
+            </a> </div>
+          
+        </div>
+      </div>
+    </div> 
+</div> 
+<!--banner sction--> 
+{% paginate collection.products by settings.pagination_products_per_page %}
+<div id="content" style="display:none;">
+    <div class="inner_wrap">
+        <div class="container">
+            <div class="row" id="products">
+            {% if collection.products.size == 0 %}
+                <strong>{{ 'collections.general.no_matches' | t }}</strong>
+            {% else %}
+                {% for product in collection.products %} 
+              		
+              		<div class="col-md-4 col-sm-6">
+                      <div class="product_box">
+                        <div class="product_img">
+                            <span class="saleflag">Sale</span>
+                          	<a href="{{ product.url }}"><img src="{{ product.featured_image | product_img_url: 'medium' }}"></a>
+                        </div>
+                        <div class="title"><a href="{{ product.url }}">{{ product.title }}</a></div>
+                        <div class="foot">
+                          <div class="price"> 
+                            {% if product.compare_at_price_max > product.price %}<span class="reducedfrom">{{ product.compare_at_price_max | money }}</span>{% endif %}
+                            <span class="amount">{% if product.price_varies %}<span class="from">{{ 'products.general.from' | t }} </span>{% endif %}{{ product.price | money }}</span>
+                          </div>
+                          <form action="/cart/add" class="product-form" method="post" id="product-form-{{ product.id }}">
+                              {% for variant in product.variants limit:1 %}
+                                  <input type="hidden" name="id" value="{{ variant.id }}" />
+                              {% endfor %}
+                              <button class="btn green_btn" type="submit" value="Submit"><i class="glyphicon glyphicon-shopping-cart"></i></button>
+
+                          </form>
+                          <!--<a href="{{ product.url }}" class="btn green_btn"><i class="glyphicon glyphicon-shopping-cart"></i></a>-->
+                          <a href="{{ product.url }}" class="btn blue_btn">LEARN MORE</a>
+                        </div>
+                    </div>
+					</div>
+                
+                {% endfor %}
+              	<div class="clearfix visible-xs-block"></div>                
+            {% endif %}            
+            </div>
+            {% if collection.products.size != 0 %}
+          	<div class="row">
+              <div class="col-md-12">
+              {% if paginate.pages > 1 %}
+                <div class="pagination">
+                  {{ paginate | default_pagination }}
+                </div>
+              {% endif %}
+              </div>
+          	</div>
+            {% endif %}  
+        </div>
+    </div>
+</div>
+{% endpaginate %}
+
+{% include 'reviews' %}

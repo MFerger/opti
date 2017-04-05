@@ -1,0 +1,240 @@
+{% comment %} SETTINGS {% endcomment %}
+{% assign show_thumbs_above_image = false %}
+
+<!--{% if settings.breadcrumbs_enabled == true or settings.social_links_page_show_tw == true or settings.social_links_page_show_fb == true or settings.social_links_page_show_goog == true %}
+<div id="breadcrumbs">
+  <span class="text">
+    {% if settings.breadcrumbs_enabled == true %}
+    <a href="/" title="{{ 'general.breadcrumbs.home' | t }}">{{ 'general.breadcrumbs.home' | t }}</a>
+    &raquo;
+    {% if collection %}
+    {{ collection.title | link_to: collection.url }} &raquo;
+    {% endif %}
+
+    <a href="{{ product.url }}">{{ product.title }}</a>
+    {% endif %}
+  </span>
+  {% include 'sociallinks' with product %}
+</div>
+{% endif %}-->
+
+<div id="content" itemscope itemtype="http://schema.org/Product">
+  <meta itemprop="name" content="{{ product.title }}" />
+  <meta itemprop="url" content="{{ shop.url }}{{ product.url }}" />
+  <meta itemprop="image" content="http:{{ product.featured_image.src | product_img_url: 'grande' | remove: 'http:' | remove: 'https:' }}" />
+    {% assign featured_image = product.selected_or_first_available_variant.featured_image | default: product.featured_image %}
+    <div class="product_details_top">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="product_detils_imgbox">                           
+                            
+                            {% if product.images.size > 0 %}
+                            <div id="custom-pag-place"></div>
+                            <div id="owl-demo" class="owl-carousel owl-theme">
+                                {% for image in product.images %}
+                                    <div class="item">
+                                        {{ image | product_img_url: 'master' | img_tag: image.alt }}
+                                    </div>
+                                {% endfor %}
+                            </div>
+                            {% endif %}
+                        
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="productdetail_rt">
+                        <h1>{{ product.title }}</h1>
+                        <div class="price"> 
+                          {% if product.compare_at_price_max > product.price %}<span class="reducedfrom">{{ product.compare_at_price_max | money }}</span>{% endif %}
+                          <span class="amount">{% if product.price_varies %}<span class="from">{{ 'products.general.from' | t }} </span>{% endif %}{{ product.price | money }}</span>
+                        </div>
+                        <form action="/cart/add" method="post" id="{{ product.id }}">
+                            <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}" />
+                            <div class="prod_quantity">
+                               <label for="quantity">Quantity</label>   
+                               <select name="quantity" id="quantity">
+                                 <option>1</option>
+                                 <option>2</option>
+                                 <option>3</option>
+                                 <option>4</option>
+                                 <option>5</option>
+                                 <option>6</option>
+                                 <option>7</option>
+                                 <option>8</option>
+                                 <option>9</option>
+                                 <option>10</option>
+                               </select>                      
+                            </div>
+                            
+                            <button type="submit">Add to cart <i class="glyphicon glyphicon-shopping-cart"></i></button>
+                        </form>
+                        <div class="prod_description">
+                            {{ product.description }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>    
+    <div class="clearit"></div>    
+  {% include 'related-products' %}
+</div>
+<!--content sction--> 
+<div class="inner_wrap">
+	<div class="container">
+    	<div class="row">
+        	<div class="col-sm-12">
+            	<div class="pack_include">
+                	<h2 class="ttl_style">{{ product.metafields.superpack.super_pack }}</h2>
+                   	{{settings.super_pack_content}}
+                    <div class="mdl_qnt_section">
+                    	<form action="/cart/add" method="post" id="{{ product.id }}">
+                        <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}" />
+                        <button type="submit" name="">Add to cart <i class="glyphicon glyphicon-shopping-cart"></i></button>
+                        <div class="prod_quantity">
+                           <label for="quantity">Quantity</label>   
+                               <select name="quantity" id="quantity">
+                                 <option>1</option>
+                                 <option>2</option>
+                                 <option>3</option>
+                                 <option>4</option>
+                                 <option>5</option>
+                                 <option>6</option>
+                                 <option>7</option>
+                                 <option>8</option>
+                                 <option>9</option>
+                                 <option>10</option>
+                               </select>                      
+                            </div>
+                        </form>
+                     <div class="clearfix"></div>   
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-12">
+            	<div class="pack_info">
+                	<h2 class="ttl_style">{{settings.learn_title}}</h2>
+               		<div class="row">
+                	<div class="col-sm-6">
+                    	<div class="lrn_info">
+                        	{{ product.metafields.learncontent.learn_content }}
+                            <div class="mdl_qnt_section">
+                    	<form action="/cart/add" method="post" id="{{ product.id }}">
+                        <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}" />
+                        <button type="submit" name="">Add to cart <i class="glyphicon glyphicon-shopping-cart"></i></button>
+                        <div class="prod_quantity">
+                           <label for="quantity">Quantity</label>   
+                               <select name="quantity" id="quantity">
+                                 <option>1</option>
+                                 <option>2</option>
+                                 <option>3</option>
+                                 <option>4</option>
+                                 <option>5</option>
+                                 <option>6</option>
+                                 <option>7</option>
+                                 <option>8</option>
+                                 <option>9</option>
+                                 <option>10</option>
+                               </select>                      
+                            </div>
+                        </form>
+                     <div class="clearfix"></div>   
+                    </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                       	<div class="lrn_img">
+                          {% if product.metafields.learnimage.learnimage == 'learnimage'  or product.metafields.learnimage.learnimage == '' %}                          
+                          	<img src="{{ 'learn_image.png' | asset_url }}" alt="">
+                          {% else %}
+                          	<img src="{{ product.metafields.learnimage.learnimage }}" alt="">
+                          {% endif %} 
+                        </div>
+                    </div>
+                </div>
+                </div>
+            </div>
+            <div class="col-sm-12">
+            	<div class="customer_review_block">
+                	<!--<h2 class="ttl_style">Customer Reviews</h2>
+                    <div class="customer_reviews">
+                    	<div class="rating_top">
+                        	<ul>
+                            	<li><img src="{{ 'stars.png' | asset_url }}" alt=""></li>
+                                <li>Username</li>
+                                <li>11/21/2016</li>
+                            </ul>
+                        </div>
+                        <h4>Review title is a title like this.</h4>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum sit amet ex turpis. Pellentesque ut lectus efficitur, varius quam eu, ultricies ante. Ut finibus hendrerit sapien at condimentum. Phasellus id dapibus enim. Cras ut sem non lectus tristique congue sed at lectus. Aenean aliquet ut nunc eget semper. Suspendisse porta ligula vel cursus cursus. Vestibulum rhoncus finibus neque sit amet imperdiet. Etiam posuere justo eu quam placerat elementum. Praesent faucibus odio eu nunc faucibus porttitor. Vivamus finibus iaculis purus, at tristique nisi ullamcorper eget.</p>
+                    </div>
+                    
+                    <div class="customer_reviews">
+                    	<div class="rating_top">
+                        	<ul>
+                            	<li><img src="{{ 'stars.png' | asset_url }}" alt=""></li>
+                                <li>Username</li>
+                                <li>11/21/2016</li>
+                            </ul>
+                        </div>
+                        <h4>Review title is a title like this.</h4>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum sit amet ex turpis. Pellentesque ut lectus efficitur, varius quam eu, ultricies ante. Ut finibus hendrerit sapien at condimentum. Phasellus id dapibus enim. Cras ut sem non lectus tristique congue sed at lectus. Aenean aliquet ut nunc eget semper. Suspendisse porta ligula vel cursus cursus. Vestibulum rhoncus finibus neque sit amet imperdiet. Etiam posuere justo eu quam placerat elementum. Praesent faucibus odio eu nunc faucibus porttitor. Vivamus finibus iaculis purus, at tristique nisi ullamcorper eget.</p>
+                    </div>-->
+                  	<div id="shopify-product-reviews" data-id="{{product.id}}">{{ product.metafields.spr.reviews }}</div>               	
+                  	
+                  
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+
+var owl;
+$( window ).load(function() {
+    owl = $("#owl-demo");
+    owl.owlCarousel({
+        navigation: false, // Show next and prev buttons
+        slideSpeed: 300,
+        paginationSpeed: 400,
+        singleItem: true,
+        afterInit: afterOWLinit, // do some work after OWL init
+        afterUpdate : afterOWLinit
+    });    
+    function afterOWLinit() {
+        // adding A to div.owl-page
+        $('.owl-controls .owl-page').append('<a class="item-link"/>');
+        var pafinatorsLink = $('.owl-controls .item-link');
+        $.each(this.owl.userItems, function (i) {
+            $(pafinatorsLink[i])
+                // i - counter
+                // Give some styles and set background image for pagination item
+                .css({
+                    'background': 'url(' + $(this).find('img').attr('src') + ') center center no-repeat',
+                    '-webkit-background-size': 'cover',
+                    '-moz-background-size': 'cover',
+                    '-o-background-size': 'cover',
+                    'background-size': 'cover'
+                })
+                // set Custom Event for pagination item
+                .click(function () {
+                    owl.trigger('owl.goTo', i);
+                });
+
+        });
+        // add Custom PREV NEXT controls
+        $('.owl-pagination').prepend('<a href="#prev" class="prev-owl"/>');
+        $('.owl-pagination').append('<a href="#next" class="next-owl"/>');
+        // set Custom event for NEXT custom control
+        $(".next-owl").click(function () {
+            owl.trigger('owl.next');
+        });
+        // set Custom event for PREV custom control
+        $(".prev-owl").click(function () {
+            owl.trigger('owl.prev');
+        });
+    }
+});
+</script>

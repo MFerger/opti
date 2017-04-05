@@ -1,0 +1,41 @@
+<div class="col-md-4 col-sm-6">
+{% assign producturl = product-list-item-inner.url | within: collection %}
+<a class="imagecontainer" href="{{ producturl }}">
+    <span class="inner">
+    {% if settings.image_product_sale_enabled == true and product-list-item-inner.compare_at_price_max > product-list-item-inner.price %}
+      <span class="saleflag">{{ 'products.general.sale' | t }}</span>
+    {% endif %}
+    {% if settings.thumb_roll_enabled == true and product-list-item-inner.images.size > 1 %}
+        <span class="img1"><img class="prodimg" src="{{ product-list-item-inner.featured_image | product_img_url: 'large' }}" alt="{{ product-list-item-inner.featured_image.alt | escape }}" /></span>
+        <!--<span class="img2"><img class="prodimg" src="{{ product-list-item-inner.images[1] | product_img_url: 'large' }}" alt="{{ product-list-item-inner.images[1].alt | escape }}" /></span>-->
+    {% else %}
+        <img class="prodimg" src="{{ product-list-item-inner.featured_image | product_img_url: 'large' }}" alt="{{ product-list-item-inner.featured_image.alt | escape }}" />
+    {% endif %}
+    </span>
+</a>
+<div class="title"><a href="{{ producturl }}">{{ product-list-item-inner.title }}</a></div>
+{% if settings.thumb_desc_enabled == true %}
+<div class="desc"><a href="{{ producturl }}">{{ product-list-item-inner.description | strip_html | truncate: 65 }}</a></div>
+{% endif %}
+<div class="foot">
+    <div class="price">
+		{% if product-list-item-inner.compare_at_price_max > product-list-item-inner.price %}<span class="reducedfrom">{{ product-list-item-inner.compare_at_price_max | money }}</span>{% endif %}
+		<span class="amount">{% if product.price_varies %}<span class="from">{{ 'products.general.from' | t }} </span>{% endif %}{{ product-list-item-inner.price | money }}</span>
+	</div>
+
+	{% if settings.enable_quick_purchase == true and product-list-item-inner.variants.size == 1 and product-list-item-inner.available %}
+	<form action="/cart/add" method="post" id="product-form-{{ product-list-item-inner.id }}">
+        <div class="buttoncont">
+		{% for variant in product-list-item-inner.variants limit:1 %}
+		    <input type="hidden" name="id" value="{{ variant.id }}" />
+		{% endfor %}
+    		<input class="addbutton" type="submit" name="add" value="{{ 'products.listing.buy_now' | t }}" id="purchase" />
+        </div>
+	</form>
+	{% else %}
+    <div class="buttoncont">
+	    <a href="{{ producturl }}">{{ 'products.listing.see_more' | t }}</a>
+    </div>
+	{% endif %}
+</div>
+</div>

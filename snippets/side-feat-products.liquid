@@ -1,0 +1,50 @@
+{% if collections[settings.recommended_products_coll_side] and collections[settings.recommended_products_coll_side].products.size > 0 %}
+<div class="miniproductlist">
+    <h2>{{ 'general.featured_products.title_on_sidebar' | t }}</h2>
+    <ul>
+	{% for product in collections[settings.recommended_products_coll_side].products limit: settings.recommended_products_count_side %}
+    <li {% cycle '', '', 'class="end"' %}>
+        <div class="title">
+            <span>{{ product.title }}</span>
+            <i class="notch"></i>
+        </div>
+        <a class="imagecontainer" href="{{ product.url }}">
+            <span class="img1"><img src="{{ product.featured_image | product_img_url: 'small' }}" alt="{{ product.title }}" /></span>
+        {% if product.images.size > 1 %}
+            <span class="img2"><img src="{{ product.images[1] | product_img_url: 'small' }}" alt="{{ product.title }}" /></span>
+        {% endif %}
+        </a>
+    </li>
+    {% endfor %}
+    </ul>
+    <script type="text/javascript">
+    // <![CDATA[
+    $(function(){
+      //Set position & dimensions of popup title
+      $('#aside .miniproductlist li .title').each(function(){
+        //Set this to have a large width so the child span can find its natural width
+        $(this).css('visibility', 'hidden').show().css('width', 600);
+        $(this).width($(this).children().first().width() + 16);
+        $(this).hide().css('visibility', '');
+        //Now we have width, offset x
+        var w = $(this).width();
+        var contw = $(this).parent().width();
+        $(this).css('left', (contw / 2 - w / 2) - 8);
+      });
+      //Init popup title fade in
+      $('#aside .miniproductlist li .imagecontainer').hover(function(){
+        if($('#wrap').width() >= mobileSnapWidth) {
+          $(this).prev().stop(true,true).fadeIn(200);
+        }
+      }, function(){
+        if($('#wrap').width() >= mobileSnapWidth) {
+          $(this).prev().stop(true,true).fadeOut(100);
+        }
+      });
+    });
+    // ]]>
+    </script>
+
+    <div class="clearit"></div>
+</div>
+{% endif %}

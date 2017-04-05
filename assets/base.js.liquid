@@ -1,0 +1,286 @@
+/*!
+* jQuery imagesLoaded plugin v2.0.1
+* http://github.com/desandro/imagesloaded
+*
+* MIT License. by Paul Irish et al.
+*/
+
+/*jshint curly: true, eqeqeq: true, noempty: true, strict: true, undef: true, browser: true */
+/*global jQuery: false */
+
+;(function($, undefined) {
+'use strict';
+    
+    // blank image data-uri bypasses webkit log warning (thx doug jones)
+    var BLANK = 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw==';
+    
+    $.fn.imagesLoaded = function( callback ) {
+        var $this = this,
+        deferred = $.isFunction($.Deferred) ? $.Deferred() : 0,
+        hasNotify = $.isFunction(deferred.notify),
+        $images = $this.find('img').add( $this.filter('img') ),
+        loaded = [],
+        proper = [],
+        broken = [];
+        
+        function doneLoading() {
+            var $proper = $(proper),
+                $broken = $(broken);
+            
+            if ( deferred ) {
+                if ( broken.length ) {
+                deferred.reject( $images, $proper, $broken );
+                } else {
+                deferred.resolve( $images );
+                }
+            }
+            
+            if ( $.isFunction( callback ) ) {
+                callback.call( $this, $images, $proper, $broken );
+            }
+        }
+        
+        function imgLoaded( img, isBroken ) {
+            // don't proceed if BLANK image, or image is already loaded
+            if ( img.src === BLANK || $.inArray( img, loaded ) !== -1 ) {
+                return;
+            }
+            
+            // store element in loaded images array
+            loaded.push( img );
+            
+            // keep track of broken and properly loaded images
+            if ( isBroken ) {
+                broken.push( img );
+            } else {
+                proper.push( img );
+            }
+            
+            // cache image and its state for future calls
+            $.data( img, 'imagesLoaded', { isBroken: isBroken, src: img.src } );
+            
+            // trigger deferred progress method if present
+            if ( hasNotify ) {
+                deferred.notifyWith( $(img), [ isBroken, $images, $(proper), $(broken) ] );
+            }
+            
+            // call doneLoading and clean listeners if all images are loaded
+            if ( $images.length === loaded.length ){
+                setTimeout( doneLoading );
+                $images.unbind( '.imagesLoaded' );
+            }
+        }
+        
+        // if no images or unreasonable IE version, trigger immediately
+        if ( !$images.length ) {
+            doneLoading();
+        } else {
+            $images.bind( 'load.imagesLoaded error.imagesLoaded', function( event ){
+            // trigger imgLoaded
+            imgLoaded( event.target, event.type === 'error' );
+            }).each( function( i, el ) {
+            var src = el.src;
+            
+            // find out if this image has been already checked for status
+            // if it was, and src has not changed, call imgLoaded on it
+            var cached = $.data( el, 'imagesLoaded' );
+            if ( cached && cached.src === src ) {
+            imgLoaded( el, cached.isBroken );
+            return;
+            }
+            
+            // if complete is true and browser supports natural sizes, try
+            // to check for image status manually
+            if ( el.complete && el.naturalWidth !== undefined ) {
+            imgLoaded( el, el.naturalWidth === 0 || el.naturalHeight === 0 );
+            return;
+            }
+            
+            // cached images don't fire load sometimes, so we reset src, but only when
+            // dealing with IE, or image is complete (loaded) and failed manual check
+            // webkit hack from http://groups.google.com/group/jquery-dev/browse_thread/thread/eee6ab7b2da50e1f
+            if ( el.readyState || el.complete ) {
+            el.src = BLANK;
+            el.src = src;
+            }
+            });
+        }
+        
+        return deferred ? deferred.promise( $this ) : $this;
+    };
+})(jQuery);
+
+$(function($){
+  //jQuery extensions
+  $.support.placeholder = (function(){
+    var i = document.createElement('input');
+    return 'placeholder' in i;
+  })();
+  
+  //Normalise heights for product thumb details
+  $.fn.normaliseHeights = function(options) {
+    //options = { numPerRow:4, itemClass:'.product', textRegionClasses:'.title, .desc', affectOnlyDirectlyChildren:false }
+    var settings = { affectOnlyDirectlyChildren: false, updatedElement: false};
+    $.extend(settings, options);
+    
+    $(this).each(function(){
+      var itemsToAssess = settings.textRegionClasses.split(',');
+      var $outerthis = $(this);
+      $.each(itemsToAssess, function(index, value){
+        if(settings.affectOnlyDirectlyChildren) {
+          var $allChunks = $outerthis.find(settings.itemClass + ' > ' + value);
+        } else {
+          var $allChunks = $outerthis.find(settings.itemClass + ' ' + value);
+        }
+        for (i = 0; i < $allChunks.length; i += settings.numPerRow) {
+          var end = Math.min(i + settings.numPerRow, $allChunks.length);
+          var tallest = 0;
+          var $sliced = $allChunks.slice(i, end);
+          var doHeights = settings.updatedElement === false;
+          if(settings.updatedElement !== false) {
+            for(var j=0; j<$sliced.length; j++) {
+              if($sliced[j] == settings.updatedElement) {
+                doHeights = true;
+                break;
+              }
+            }
+          }
+          if(doHeights) {
+            $sliced.each(function(){
+              var thisHeight = $(this).css({ height:'', lineHeight:'' }).height();
+              if(thisHeight > tallest) {
+                tallest = thisHeight;
+              }
+            });
+            //If just one per row - auto height
+            if(settings.numPerRow > 1) {
+              $sliced.css('height', tallest);
+            }
+          }
+        }
+      });
+    });
+    return $(this);
+  };
+  
+  //Mobile nav
+  $(document).on('click', '#toggle-mobile-menu, .toggle-mobile-menu', function(e){
+    $('body').toggleClass('revealnav');
+    $('.cover-all').slideToggle();
+    return false;
+  });
+  $('#navblock ul.nav').clone().appendTo('#mobile-header').find('canvas, .rq').remove();
+    
+    var productsPerRowRightNow = $(window).width() >= mobileSnapWidth ? 4 : 1;
+    var $wrapcont = $('#wrap');
+    $(window).on('resize checkproductblockheights', function() {
+        //Do things when theme snaps - and on DOM ready
+        var contWidth = $wrapcont.width();
+        if(typeof($wrapcont.data('prevwidth')) == 'undefined'
+                || $wrapcont.data('prevwidth') != contWidth) {
+            //Do this when CSS framework 'snaps'
+            
+            productsPerRowRightNow = $(window).width() >= mobileSnapWidth ? 4 : 1;
+            
+            $('.productlist').normaliseHeights({
+                numPerRow:productsPerRowRightNow,
+                itemClass:'.product',
+                textRegionClasses:'.imagecontainer, .title'
+            }).find('.imagecontainer').each(function(){
+                $(this).css('line-height', ($(this).height()-5)+'px');
+            });
+            $('.miniproductlist').normaliseHeights({
+                numPerRow:productsPerRowRightNow,
+                itemClass:'li',
+                textRegionClasses:'.imagecontainer'
+            }).find('.imagecontainer').each(function(){
+                $(this).css('line-height', $(this).height()+'px');
+            });
+        }
+        $wrapcont.data('prevwidth', contWidth);
+    }).trigger('checkproductblockheights');
+    
+    //Trigger again once any fonts are loaded
+    $(window).load(function(){
+        $('#wrap').data('prevwidth', null);
+        $(window).trigger('checkproductblockheights');
+    });
+    
+    $('.productlist .product .imagecontainer img').each(function(){
+      $(this).imagesLoaded(function(img){
+        $('.productlist').normaliseHeights({
+          numPerRow:productsPerRowRightNow,
+          itemClass:'.product',
+          textRegionClasses:'.imagecontainer',
+          updatedElement:$(img).closest('a')[0]
+        }).find('.imagecontainer').each(function(){
+          $(this).css('line-height', ($(this).height()-5)+'px');
+        });
+      });
+    });
+    
+    {% if settings.thumb_roll_enabled == true %}
+    //Product listings
+    $('.productlist .imagecontainer, .miniproductlist .imagecontainer').each(function(){
+        if($(this).find('img').length > 1) {
+            $(this).find('.img2').css('opacity', 0).css('visibility', 'visible');
+            $(this).hover(function(){
+                if($wrapcont.width() >= mobileSnapWidth) {
+                    $img2 = $(this).find('.img2');
+                    $img2.stop(true,true).animate({opacity:1}, 200);
+                    $(this).find('.img1').stop(true,true).animate({opacity:0}, 200);
+                }
+            }, function(){
+                if($wrapcont.width() >= mobileSnapWidth) {
+                    $img2 = $(this).find('.img2');
+                    $(this).find('.img2').stop(true,true).animate({opacity:0}, 200);
+                    $(this).find('.img1').stop(true,true).animate({opacity:1}, 200);
+                }
+            });
+        }
+    });
+    {% endif %}
+    
+    //Nav
+    $('#header #navblock ul.nav').on('mouseenter', 'li', function() {
+      $(this).children('ul, .notch').stop(true, true).fadeIn(200);
+    }).on('mouseleave', 'li', function() {
+      $(this).children('ul, .notch').stop(true, true).fadeOut(200);
+    });
+    
+    //JS fallback for placeholder text
+    if(!$.support.placeholder) {
+        $('input, textarea').each(function(){
+            var plhld = $(this).attr('placeholder');
+            if(typeof(plhld) == 'undefined') {
+                $(this).addClass('jsdeftext').addClass('masked').data('deftext', plhld).focus(function(){
+                    if($(this).val() == $(this).data('deftext')) {
+                        $(this).val('').removeClass('masked');
+                    }
+                }).blur(function(){
+                    if($(this).val() == '') {
+                        $(this).val($(this).data('deftext')).addClass('masked');
+                    }
+                }).trigger('blur');
+            }
+        });
+        //On submit form, do not submit any placeholder text
+        $('form').on('click', 'input[type=submit], button', function(){
+            $(this).closest('form').find('.jsdeftext').each(function(){
+                if($(this).val() == $(this).data('deftext')) {
+                    $(this).val('');
+                }
+            });
+        });
+    }
+    
+  //Mobile nav
+  $('#mobile-header ul.nav').on('click', 'li:has(ul) > a', function(){
+    if($(this).parent().toggleClass('reveal').hasClass('reveal')) {
+      $(this).siblings('ul').slideDown();
+    } else {
+      $(this).siblings('ul').slideUp();
+    }
+    return false;
+  }).find('li:has(ul)').addClass('haschildren');
+});

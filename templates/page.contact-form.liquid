@@ -1,0 +1,53 @@
+<div id="content">
+<!--content sction--> 
+<div class="inner_wrap">
+	<div class="container">
+    	<div class="row">
+        	<div class="col-sm-7">
+            	<div class="content_lt">
+            	   <h1>{{ page.title }}</h1> 
+                  {% form 'contact' %}
+                    {% if form.posted_successfully? %}
+                        <p class="success-msg">{{ 'contact.form.post_success' | t }}</p>
+                    {% endif %}
+                    <div class="user-form">
+                        {% if form.errors %}
+                            {% assign message_label = 'contact.form.message' | t %}
+                            <ul>
+                            {% for field in form.errors %}
+                                <li class="error">{{ field | replace: 'body',message_label | capitalize }} - {{ form.errors.messages[field] }}</li>
+                            {% endfor %}
+                            </ul>
+                        {% endif %}
+
+                       <div id="contactFormWrapper">
+                         <div class="col-md-6 col-sm-6" style=" padding-left:0">
+    <p>
+      
+      <input type="text" class="form-control" placeholder="Name" required id="contactFormName" name="contact[name]">
+    </p>
+    <p>
+     
+      <input type="email" class="form-control " placeholder="Email" required id="contactFormEmail" name="contact[email]">
+    </p>
+   
+    <p></div>
+    
+      <textarea required rows="5" class="form-control " id="contactFormMessage" name="contact[body]"></textarea>
+    </p>
+    
+                      </div></div>
+                    <input type="submit" class="btn green_btn" value="{{ 'contact.form.send' | t }}" id="comment-submit" />
+                    
+                {% endform %}
+                </div>
+                {{ page.content }}
+            </div>
+            <div class="col-sm-5">
+            	{% include 'sidebar' %}
+            </div>
+        </div>
+    </div>
+</div>
+<!--content sction--> 
+</div> 

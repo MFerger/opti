@@ -1,0 +1,19 @@
+<div class="cartsummary">
+  <div class="header">
+    <h2>{{ 'layout.sidebar.cart_summary_title' | t }}</h2>
+    {% if cart.item_count > 0 %}
+    <p><a href="/cart">{{ 'layout.sidebar.cart_items_with_count' | t: count: cart.item_count }} ({{ cart.total_price | money }})</a></p>
+    {% endif %}
+  </div>
+  {% if cart.item_count > 0 %}
+  <ul>
+    {% for item in cart.items %}
+    <li>
+      <span><a href="{{ item.product.url }}">{{ item.quantity }}x {{ item.title }}</a></span>
+    </li>
+    {% endfor %}
+  </ul>
+  {% else %}
+  {{ 'layout.sidebar.cart_summary_empty' | t }}
+  {% endif %}
+</div>

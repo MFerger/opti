@@ -1,0 +1,36 @@
+<div class="inner_wrap blog-list">
+	<div class="container">
+    	<div class="row">
+        	<div class="col-sm-7">
+                {% paginate blog.articles by 10 %}
+                    {% for article in blog.articles  %}
+                        <div class="content_lt ftr_lt">
+                            <h2><a href="{{ article.url }}">{{ article.title }}</a></h2>
+                            {% if article.image %}
+                                <div class="blog_img">
+                                    {{ article.image | img_url: 'large' | img_tag: article.image.alt | link_to: article.url }}
+                                </div>                            
+                            {% endif %}
+                            <div class="blog-details" >
+                              {% comment %} {{ 'blogs.article.author_html' | t: author: article.author }}{% endcomment %}
+                              {% assign date = article.published_at | date: format: 'month_date_year' %}
+                              {{ 'blogs.article.date_html' | t: date: date }} 
+                              {% if blog.comments_enabled? and article.comments_count > 0 %}
+                              <a href="{{article.url}}#comments"><em>{{ 'blogs.comments.comments_with_count' | t: count: article.comments_count }}</em></a>
+                              {% endif %}
+                            </div>
+                            <p>{{ article.content | strip_html | truncatewords: 100 }}</p>
+                            <a href="{{ article.url }}" class="btn green_btn rdmore">Read More</a>
+                        </div>
+                    {% endfor %}
+                <div class="pagination">
+                    {{ paginate | default_pagination }}
+                </div>
+                {% endpaginate %}
+            </div>
+            <div class="col-sm-5">
+            	{% include 'side-blog' %}
+            </div>
+        </div>
+    </div>
+</div>

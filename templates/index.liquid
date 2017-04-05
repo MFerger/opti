@@ -1,0 +1,245 @@
+<div id="content">
+    <div class="slider_wrap" id='slider_wrap'>
+      <div class="homecove">
+  </div>
+</div>
+      <div class="container hrdcnt">
+        <div class='col-md-7 hero_content'>
+          <h1>
+            Speak the language.
+          </h1>
+          <h1>
+            Be the language.
+          </h1>
+          <div class="dropdown">
+            <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-expanded="false">
+              <a class='hero_french' href='/products/assimil-french-with-ease-super-pack'>French</a>
+              <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+            {% for link in linklists.top-languages.links %}
+              {% if link.title != "French" %}
+                <li ><a class='hero_french {{link.title}}' data-link='{{ link.url }}'>{{ link.title }}</a></li>
+              {% endif %}
+            {% endfor %}
+            </ul>
+          </div>
+          <a class='im_ready' href='/products/assimil-french-with-ease-super-pack'>I'm Ready To Learn</a>
+        </div>
+      </div>
+  </div>
+      </div>
+    </div>
+    <div class='new_language'>
+      <div class='container'>
+        <div class='row'>
+          <h2>Speaking a new language has never been easier</h2>
+          <div class='col-md-4'>
+            <div class='language_item'>
+              {{ 'castle.png' | asset_url | img_tag: '', 'language_icons' }}
+              <h4>Europe's top language tool</h4>
+              <p>Lorem ipsum dolor sit amet, consec tetur adipiscing elit. Nam facilisis aliquam rutrum.</p>
+            </div>
+            <div class='language_item'>
+              {{ 'book.png' | asset_url | img_tag: '', 'language_icons' }}
+              <h4>Learn at your own pace</h4>
+              <p>Lorem ipsum dolor sit amet, consec tetur adipiscing elit. Nam facilisis aliquam rutrum.</p>
+            </div>
+          </div>
+          <div class='col-md-4 laptop_center'>
+            <a data-gallery="youtubevideos" data-toggle="lightbox" data-width='1000' data-title="VIDEO" href="https://player.vimeo.com/video/109926088?autoplay=1">
+              {{ 'book.png' | asset_url | img_tag: '', 'language_icons' }}
+            </a>
+            {{ 'laptop.png' | asset_url | img_tag }}
+          </div>
+          <div class='col-md-4'>
+            <div class='language_item'>
+              {{ 'clock.png' | asset_url | img_tag: '', 'language_icons' }}
+              <h4>Just 30 minutes a day</h4>
+              <p>Lorem ipsum dolor sit amet, consec tetur adipiscing elit. Nam facilisis aliquam rutrum.</p>
+            </div>
+            <div class='language_item'>
+              {{ 'coffee.png' | asset_url | img_tag: '', 'coffee_icons' }}
+              <h4>Study anytime, anywhere</h4>
+              <p>Lorem ipsum dolor sit amet, consec tetur adipiscing elit. Nam facilisis aliquam rutrum.</p>
+            </div>
+          </div>
+        </div>
+        <div class='row'>
+          <a href='#' class='language_link'>See How We Do It</a>
+        </div>
+      </div>
+    </div>
+    <!--banner sction-->
+    {% comment %}
+  	{% if settings.show_homepage_mid_text %}{{ pages.frontpage.content }}{% endif %}
+    {% endcomment %}
+  	{% include 'reviews' %}
+</div><!-- #content -->
+<!-- Modal -->
+ <div class="modal fade" id="memberModal" tabindex="-1" role="dialog" aria-labelledby="memberModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" id='closemodalcross' class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span>
+                </button>
+
+              </div>
+
+            <div class="modal-body">
+              <div class="pop-bg" >
+                <div class="poptxt">
+                <input class="form-controlpop" placeholder="Enter Email Address" name="ol_email" id='ol_email'  type="text">
+                  <p id='msg' style='color:#013F82; font-weight:bolder;'></p>
+  <a href="javascript:;" onclick="javascript:setemail()" class="btn green_btn">Get Started Now</a>
+
+                </div>
+  </div>
+
+            </div>
+
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+  function getQueryStrings() {
+  var assoc  = {};
+  var decode = function (s) { return decodeURIComponent(s.replace(/\+/g, " ")); };
+  var queryString = location.search.substring(1);
+  var keyValues = queryString.split('&');
+
+  for(var i in keyValues) {
+    var key = keyValues[i].split('=');
+    if (key.length > 1) {
+      assoc[decode(key[0])] = decode(key[1]);
+    }
+  }
+
+  return assoc;
+}
+/*************************Start Mobile detection***********************/
+  var mobiledevice = 0;
+  testExp = new RegExp('Android|webOS|iPhone|iPad|' +
+    		       'BlackBerry|Windows Phone|'  +
+    		       'Opera Mini|IEMobile|Mobile' ,
+    		      'i');
+
+  if (testExp.test(navigator.userAgent))
+  {
+  	mobiledevice = 1;
+  }     //document.getElementById("device").innerHTML =
+       		//"Your device is a Mobile Device";
+  else
+  {
+  	mobiledevice = 0;
+  }
+    //document.getElementById("device").innerHTML =
+       		//"Your device is NOT a Mobile Device";
+
+/*************************End Mobile detection***********************/
+
+  var qs = getQueryStrings();
+var myParam = qs["myParam"];
+   $("#msg").html	=	"";
+  var username = getCookie("ol_username");
+  if(mobiledevice==0)
+  {
+  if (username == "" || myParam==1) {
+       $(window).load(function(){
+       // $('#memberModal').modal('show');
+    });
+    }
+  }
+  function validateEmail($email) {
+  var emailReg = /^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/;
+  return emailReg.test( $email );
+}
+
+
+ function setemail()
+ {
+
+   var ol_email	=	$('#ol_email').val();
+   if(ol_email=="")
+   {
+      $("#msg").html("Please provide an email address.");
+   }
+   else if(validateEmail(ol_email))
+   {
+   	checkCookie(ol_email);
+   	$('#closemodalcross').trigger("click");
+     $('#mce-EMAIL').val(ol_email);
+
+
+     $.get( "//optilingo.us14.list-manage.com/subscribe/post-json?u=c5cacd0f27cfba4c6bdc6c36f&amp;id=8fbd6b34e8&c=?", $( "#mc-embedded-subscribe-form" ).serialize(), function(){
+
+     } );
+     setTimeout(function(){ callbackFunction(); }, 300);
+
+
+   }
+   else
+   {
+     $("#msg").html("Please provide a valid email address.");
+  }
+ }
+ function callbackFunction()
+  {
+  	window.location	=	"/collections/all";
+  }
+  function getCookie(cname) {
+    var name = cname + "=";
+    var decodedCookie = decodeURIComponent(document.cookie);
+    var ca = decodedCookie.split(';');
+    for(var i = 0; i <ca.length; i++) {
+        var c = ca[i];
+        while (c.charAt(0) == ' ') {
+            c = c.substring(1);
+        }
+        if (c.indexOf(name) == 0) {
+            return c.substring(name.length, c.length);
+        }
+    }
+    return "";
+}
+
+  function setCookie(cname, cvalue, exdays) {
+    var d = new Date();
+    d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
+    var expires = "expires="+d.toUTCString();
+    document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+}
+
+function checkCookie(username)
+{
+    var user = getCookie("ol_username");
+    if (user == "")
+    {
+            setCookie("ol_username", username, 456);
+    }
+  else
+  {
+ 	//return user;
+  }
+}
+
+</script>
+    <script type='text/javascript'>
+    $(function(){
+    $(".dropdown-menu").on('click', 'li a', function(){
+      var span = '<span class="caret"></span>';
+      $(".btn:first-child").html($(this).parent().html()+span);
+      var link = $(this).attr('data-link')
+      console.log(link);
+      $('.im_ready').attr('href', link);
+     });
+    });
+    </script>
+<div id='mailchimpform' style="display:none;">
+<form action="//optilingo.us14.list-manage.com/subscribe/post?u=c5cacd0f27cfba4c6bdc6c36f&amp;id=8fbd6b34e8" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
+	<input type="email" value="Email" name="EMAIL" class="required email" id="mce-EMAIL">
+	<input type="text" value="First name" name="FNAME" class="" id="mce-FNAME">
+	<input type="text" value="Last name" name="LNAME" class="" id="mce-LNAME">
+	<input type="submit" value="Subscribe" name="subscribe" id="mc-embedded-subscribe" class="button">
+</form>
+</div>

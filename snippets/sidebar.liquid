@@ -1,0 +1,81 @@
+<div class="rt_sdbar">
+  <div class="sdbar_top">
+    <div class="img_box"><img src="{{ 'user_guide_sidebar.png' | asset_url }}" alt=""></div>
+    <div class="lrb_bar">Learn a new language<br> <strong>in hours</strong>, not years.</div>
+  </div>
+  <div class="rt_bluebox">
+    {{settings.user_Guide_sidebar_content}}
+  </div>
+{% if settings.featured_products_sidebar_collection %}
+  
+   <div class="row">
+                    <div class="col-sm-12 nwft">
+                        <div class="sldr_btm_lt" >
+                          <h2 class="hdblue">Featured Products</h2>
+                            
+                            <ul>                            
+                              {% for link in linklists.top-languages.links %}
+                                  <li><a href="{{ link.url }}">{{ link.title }}</a></li>
+                              {% endfor %}
+                            </ul>
+                          
+                        </div>
+                    </div>
+                    
+           
+        </div>
+      
+
+  <div class="featured_wrap" style=" display:none;"
+    <h3>{{settings.featured_products_sidebar_title}}</h3>
+    
+    {% paginate collections[settings.featured_products_sidebar_collection].products by 10 %}
+        {% if collections[settings.featured_products_sidebar_collection].products.size %}
+            <div id="myCarouselnew" class="carousel slide" data-ride="carousel">
+                <div class="carousel-inner">
+                {% for product in collections[settings.featured_products_sidebar_collection].products %} 
+                    <div class="item {% if forloop.first == true %}active{% endif %}">
+                        <div class="ftrd_dtls">
+                          <div class="ftrd_img"><img src="{{ product.featured_image | product_img_url: 'medium' }}" alt=""></div>
+                          <h4>{{ product.title }}</h4>
+                          <a href="{{ product.url }}" class="btn green_btn">Laern More</a> 	
+                          <div class="clearfix"></div>
+                        </div>
+                    </div>
+                {% endfor %}
+                </div>
+            </div>
+        {% else %}
+            <strong>{{ 'collections.general.no_matches' | t }}</strong>
+        {% endif %}
+    {% endpaginate %}
+    
+  </div> 
+  <script>
+    $(document).ready(function(){
+      $('#myCarouselnew').carousel({
+        interval: 5000,
+        cycle: true
+      }); 
+	});
+  </script>
+  
+{% endif %}
+  
+  <div class="side_blog">
+    <h3>From The Blog</h3>
+    <div class="blog_wrap">
+      {% for article in blogs[settings.sidebar_blog_handle].articles limit: 1 %}   
+      {% if article.image %}
+      <div class="blog_img">
+        {{ article.image | img_url: 'large' | img_tag: article.image.alt | link_to: article.url }}
+        <!--<div class="blog_date">{% assign date = article.published_at | date: format: 'month_date_year' %}{{ 'blogs.article.date_html' | t: date: date }}</div>-->
+      </div>                            
+      {% endif %}
+      <h4><a href="{{ article.url }}">Blog Title</a></h4>
+      <p>{{ article.content | strip_html | truncatewords: 20 }}</p>
+      <a href="{{ article.url }}" class="rdmore">Read More</a>
+      {% endfor %}
+    </div>
+  </div>                    
+</div>

@@ -1,0 +1,6 @@
+development:
+  password: e7afd954a329180240b0a449ed81cc32
+  store: optilingo2.myshopify.com
+  theme_id: 164338249
+  ignore_files:
+    - "*.swp"

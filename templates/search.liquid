@@ -1,0 +1,67 @@
+{% if settings.breadcrumbs_enabled == true %}
+<div id="breadcrumbs">
+    <span class="text">
+        <a href="/" title="{{ 'general.breadcrumbs.home' | t }}">{{ 'general.breadcrumbs.home' | t }}</a>
+        &raquo;
+        <a href="/search">{{ 'general.search.title' | t }}</a>
+    </span>
+</div><!-- #breadcrumbs -->
+{% endif %}
+
+<div id="content" class="hasaside">
+    <h1>{{ 'general.search.title' | t }}</h1>
+        <div class="search">
+        	<form action="/search" method="get">
+				<input type="text" name="q" id="q" value="" placeholder="{{ 'general.search.placeholder' | t }}" />
+			</form>
+		</div>
+    
+    {% if search.performed %}
+    <h6>{{ 'general.search.your_search_html' | t: terms: search.terms }}</h6>
+    
+    {% paginate search.results by 10 %}  
+    {% if search.results == empty %}  
+    <p>{{ 'general.search.no_results' | t }}</p>
+    
+    {% else %}
+    <ol class="searchresults">
+    {% for item in search.results %}      
+    <li{% if forloop.index == 1 %} class="first"{% endif %}>
+      <h3>{{ item.title | link_to: item.url }}</h3>
+      
+      {% if item.featured_image %}
+      <div class="image"><a href="{{item.url}}" title="">{{ item.featured_image | product_img_url: 'thumb' | img_tag }}</a></div>
+      {% endif %}
+      
+      {% if item.object_type == 'article' and item.image %}
+      <div class="image"><a href="{{item.url}}" title="">{{ item.image | img_url: 'thumb' | img_tag }}</a></div>
+      {% endif %}
+      
+      <div class="desc">
+        {{ item.content | strip_html | truncatewords: 40 | highlight: search.terms }}
+        <span>{{ 'general.search.view_page_html' | t }} {{ item.title | link_to: item.url }} &rarr;</span>
+      </div>
+    </li>
+    {% endfor %}
+    </ol>
+    {% endif %}
+    <p>{{ paginate | default_pagination }}</p>
+    {% endpaginate %}   
+    {% else %}
+    <h6>{{ 'general.search.no_terms' | t }}</h6>
+    {% endif %}
+  
+    {% if settings.recommended_products_show_page == true and collections[settings.recommended_products_coll_page].products.size > 0 %}
+    <div class="productlist">
+    	<h3>{{ 'general.featured_products.title_on_collection' | t }}</h3>
+        {% assign collection = collections[settings.recommended_products_coll_page] %}
+		{% for product in collection.products limit: 3 %}
+        {% include 'product-list-item' %}
+        {% endfor %}
+	</div><!-- .productlist -->
+    {% endif %}
+</div><!-- #content -->
+	
+<div id="aside">
+    {% include 'sidebar' %}
+</div><!-- #aside -->
