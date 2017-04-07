@@ -9,76 +9,163 @@
 
 <div class="collection-page slider_wrap">
 	<div class="slider_main container">
-      <div class="row">      	
-      	<div class="col-md-6">
-          <div class="collection_banner_content">
-            <div class="sldr_cont">
-            {% if collection.handle == 'all' %}
-            	{{settings.collection_page_banner_content}}            	           	
-            {% else %}
-            	<h1>{{ collection.title }}</h1>
-                {% if collection.description != empty %}            
-                    {{ collection.description }}
-               	{% endif %}
-            {% endif %}  
-            </div> 
-             
-          </div>
+    <div class="row">
+      <h2 class='choose'>Choose your language</h2>
+      <div class="row">
+        <div class="col-sm-4">
+          <a href="https://optilingo2.myshopify.com/products/assimil-french-with-ease-super-pack">
+            <img class='country_images' src="{{ 'product-french-img.png', | asset_url}}">
+            <div class="bottom_countries_section">
+              <img class='country_icons' src="{{ 'france.png', | asset_url}}">
+              <p>French</p>
+            </div>
+          </a>
         </div>
-        <div class="col-md-6">          
-         <!--  <div class="collection-image">
-          	<img src="{% if collection.image %}{{ collection.image | img_url: 'master' }}{% else %}{{ 'product_page_banner.png' | asset_url }}{% endif %}">
-          </div>-->
-          <div class="col-sm-6 col-xs-12 bxspcng">
-            
-           <a href="https://www.optilingo.com/products/assimil-spanish-with-ease-super-pack"> <img src="{% if collection.image %}{{ collection.image | img_url: 'master' }}{% else %}{{ 'sp-Lng.png' | asset_url }}{% endif %}">
-            </a> </div>
-          
-          <div class="col-sm-6 col-xs-12 bxspcng">
-           <a href="https://www.optilingo.com/products/assimil-japanese-with-ease-super-pack"> <img src="{% if collection.image %}{{ collection.image | img_url: 'master' }}{% else %}{{ 'jp-Lng.png' | asset_url }}{% endif %}">
-            </a> </div>
-          
-          
-          
-          <div class="col-sm-6 col-xs-12 bxspcng">
-            <a href="https://www.optilingo.com/products/assimil-french-with-ease-super-pack"> <img src="{% if collection.image %}{{ collection.image | img_url: 'master' }}{% else %}{{ 'fr-Lng.png' | asset_url }}{% endif %}">
-            </a></div>
-          
-          <div class="col-sm-6 col-xs-12 bxspcng">
-           <a href="https://www.optilingo.com/products/assimil-hebrew-with-ease-super-pack">  <img src="{% if collection.image %}{{ collection.image | img_url: 'master' }}{% else %}{{ 'hb-Lng.png' | asset_url }}{% endif %}">
-            </a> </div>
-          
-          
-          <div class="col-sm-6 col-xs-12 bxspcng">
-           <a href="https://www.optilingo.com/products/assimil-italian-with-ease-super-pack">  <img src="{% if collection.image %}{{ collection.image | img_url: 'master' }}{% else %}{{ 'it-Lng.png' | asset_url }}{% endif %}">
-            </a></div>
-          
-          <div class="col-sm-6 col-xs-12 bxspcng">
-            <a href="https://www.optilingo.com/products/assimil-arabic-with-ease-super-pack">  <img src="{% if collection.image %}{{ collection.image | img_url: 'master' }}{% else %}{{ 'arb-Lng.png' | asset_url }}{% endif %}">
-            </a> </div>
-          
-          
-          <div class="col-sm-6 col-xs-12 bxspcng">
-            <a href="https://www.optilingo.com/products/assimil-german-with-ease-super-pack"> <img src="{% if collection.image %}{{ collection.image | img_url: 'master' }}{% else %}{{ 'ger-Lng.png' | asset_url }}{% endif %}">
-            </a> </div>
-          
-          <div class="col-sm-6 col-xs-12 bxspcng">
-            <a href="https://www.optilingo.com/products/assimil-portuguese-with-ease-super-pack"> <img src="{% if collection.image %}{{ collection.image | img_url: 'master' }}{% else %}{{ 'brz-Lng.png' | asset_url }}{% endif %}">
-            </a> </div>
-          
-          <div class="col-sm-6 col-xs-12 bxspcng">
-           <a href="https://www.optilingo.com/products/assimil-chinese-with-ease-super-pack">  <img src="{% if collection.image %}{{ collection.image | img_url: 'master' }}{% else %}{{ 'chines-Lng.png' | asset_url }}{% endif %}">
-            </a> </div>
-          
-          <div class="col-sm-6 col-xs-12 bxspcng">
-           <a href="https://www.optilingo.com/products/assimil-russian-with-ease-super-pack">  <img src="{% if collection.image %}{{ collection.image | img_url: 'master' }}{% else %}{{ 'russ-Lng.png' | asset_url }}{% endif %}">
-            </a> </div>
-          
+        <div class="col-sm-4">
+          <a href="https://optilingo2.myshopify.com/products/assimil-spanish-with-ease-super-pack">
+             <img class='country_images' src="{{ 'product-spanish-img.png', | asset_url}}">
+             <div class="bottom_countries_section">
+               <img class='country_icons' src="{{ 'spain.png', | asset_url}}">
+               <p>Spanish</p>
+             </div>
+          </a>
+        </div>
+        <div class="col-sm-4">
+          <a href="https://optilingo2.myshopify.com/products/assimil-german-with-ease-super-pack">
+             <img class='country_images' src="{{ 'product-german-img.png', | asset_url}}">
+             <div class="bottom_countries_section">
+               <img class='country_icons' src="{{ 'germany.png', | asset_url}}">
+               <p>German</p>
+             </div>
+          </a>
         </div>
       </div>
-    </div> 
-</div> 
-<!--banner sction--> 
+      <div class="row">
+        <div class="col-sm-4">
+          <a href="https://optilingo2.myshopify.com/products/assimil-arabic-with-ease-super-pack">
+             <img class='country_images' src="{{ 'product-arabic-img.png', | asset_url}}">
+             <div class="bottom_countries_section">
+               <img class='country_icons' src="{{ 'arabic.png', | asset_url}}">
+               <p>Arabic</p>
+             </div>
+          </a>
+        </div>
+        <div class="col-sm-4">
+          <a href="https://optilingo2.myshopify.com/products/assimil-japanese-with-ease-super-pack">
+             <img class='country_images' src="{{ 'product-japanese-img.png', | asset_url}}">
+             <div class="bottom_countries_section">
+               <img class='country_icons' src="{{ 'japan.png', | asset_url}}">
+               <p>Japanese</p>
+             </div>
+          </a>
+        </div>
+        <div class="col-sm-4">
+          <a href="https://optilingo2.myshopify.com/products/assimil-italian-with-ease-super-pack">
+             <img class='country_images' src="{{ 'product-italian-img.png', | asset_url}}">
+             <div class="bottom_countries_section">
+               <img class='country_icons' src="{{ 'italy.png', | asset_url}}">
+               <p>Italian</p>
+             </div>
+          </a>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-4">
+          <a href="https://optilingo2.myshopify.com/products/assimil-chinese-with-ease-super-pack">
+             <img class='country_images' src="{{ 'product-chinese-img.png', | asset_url}}">
+             <div class="bottom_countries_section">
+               <img class='country_icons' src="{{ 'china.png', | asset_url}}">
+               <p>Chinese</p>
+             </div>
+          </a>
+        </div>
+        <div class="col-sm-4">
+          <a href="https://optilingo2.myshopify.com/products/assimil-hebrew-with-ease-super-pack">
+             <img class='country_images' src="{{ 'product-hebrew-img.png', | asset_url}}">
+             <div class="bottom_countries_section">
+               <img class='country_icons' src="{{ 'hebrew.png', | asset_url}}">
+               <p>Hebrew</p>
+             </div>
+          </a>
+        </div>
+        <div class="col-sm-4">
+          <a href="https://optilingo2.myshopify.com/products/assimil-portuguese-with-ease-super-pack">
+             <img class='country_images' src="{{ 'product-portuguese-img.png', | asset_url}}">
+             <div class="bottom_countries_section">
+               <img class='country_icons' src="{{ 'russia.png', | asset_url}}">
+               <p>Portuguese</p>
+             </div>
+          </a>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-4">
+          <a href="https://optilingo2.myshopify.com/products/assimil-russian-with-ease-super-pack">
+             <img class='country_images' src="{{ 'product-russian-img.png', | asset_url}}">
+             <div class="bottom_countries_section">
+               <img class='country_icons' src="{{ 'france.png', | asset_url}}">
+               <p>Russian</p>
+             </div>
+          </a>
+        </div>
+        <div class="col-md-1"></div>
+        <div class='col-md-6 more_languages'>
+          <h2>More languages coming soon</h2>
+          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam facilisis aliquam rutrum. Fusce eu turpis ullamcorper, interdum urna nec, dapibus nunc. Cras sit amet justo sit amet erat luctus hendrerit. Aliquam leo ipsum, convallis eget est et, blandit sodales mauris. Nunc tempus lorem justo, hendrerit tincidunt felis lobortis sed. </p>
+        </div>
+        <div class="col-md-1"></div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="europes_best">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-offset-5 col-md-6">
+        <h2>Europe's best language learning program is here.</h2>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam facilisis aliquam rutrum. Fusce eu turpis ullamcorper, interdum urna nec, dapibus nunc. Cras sit amet justo sit amet erat luctus hendrerit. Aliquam leo ipsum, convallis eget est et, blandit sodales mauris. Nunc tempus lorem justo, hendrerit tincidunt felis lobortis sed. </p>
+        <a data-gallery="youtubevideos" data-toggle="lightbox" data-width='1000' data-title="VIDEO" href="https://www.youtube.com/embed/B3OjfK0t1XM?rel=0&amp;controls=0&amp;showinfo=0?rel=0&autoplay=1"><img src="{{ 'play_icon.svg', | asset_url}}" alt=""> See how we do it</a>
+      </div>
+      <div class='col-md-1'></div>
+    </div>
+  </div>
+</div>
+<div class="perfect_for_you">
+  <div class="container">
+    <div class="row">
+      <h2>The Assimil method is perfect for you if:</h2>
+      <div class='col-md-1'></div>
+      <div class="col-md-4">
+        <div class='green_checkmark'>
+            {{ 'checkmark.png' | asset_url | img_tag }}
+            <p>Lorem ipsum dolor sit amet, consec tetur adipiscing elit.</p>
+        </div>
+        <div class='green_checkmark'>
+            {{ 'checkmark.png' | asset_url | img_tag }}
+            <p>Lorem ipsum dolor sit amet, consec tetur adipiscing elit.</p>
+        </div>
+        <div class='green_checkmark'>
+            {{ 'checkmark.png' | asset_url | img_tag }}
+            <p>Lorem ipsum dolor sit amet, consec tetur adipiscing elit.</p>
+        </div>
+        <div class='green_checkmark'>
+            {{ 'checkmark.png' | asset_url | img_tag }}
+            <p>Lorem ipsum dolor sit amet, consec tetur adipiscing elit.</p>
+        </div>
+        <div class='green_checkmark'>
+            {{ 'checkmark.png' | asset_url | img_tag }}
+            <p>Lorem ipsum dolor sit amet, consec tetur adipiscing elit.</p>
+        </div>
+      </div>
+      <div class='col-md-1'></div>
+      <div class="col-md-5 dropdown_book_images">
+      <div class='satisfied'>{{ '100satisfaction.png' | asset_url | img_tag: '', 'satisfaction_image' }} <p>30-day money-back<br> guarantee</p></div> {{ 'french_img.png' | asset_url | img_tag: '', 'French_book books' }}
+      </div>
+      <div class="col-md-1"></div>
+    </div>
+  </div>
+</div>
+<!--banner sction-->
 {% paginate collection.products by settings.pagination_products_per_page %}
 <div id="content" style="display:none;">
     <div class="inner_wrap">
@@ -87,8 +174,7 @@
             {% if collection.products.size == 0 %}
                 <strong>{{ 'collections.general.no_matches' | t }}</strong>
             {% else %}
-                {% for product in collection.products %} 
-              		
+                {% for product in collection.products %}
               		<div class="col-md-4 col-sm-6">
                       <div class="product_box">
                         <div class="product_img">
@@ -97,7 +183,7 @@
                         </div>
                         <div class="title"><a href="{{ product.url }}">{{ product.title }}</a></div>
                         <div class="foot">
-                          <div class="price"> 
+                          <div class="price">
                             {% if product.compare_at_price_max > product.price %}<span class="reducedfrom">{{ product.compare_at_price_max | money }}</span>{% endif %}
                             <span class="amount">{% if product.price_varies %}<span class="from">{{ 'products.general.from' | t }} </span>{% endif %}{{ product.price | money }}</span>
                           </div>
@@ -106,17 +192,16 @@
                                   <input type="hidden" name="id" value="{{ variant.id }}" />
                               {% endfor %}
                               <button class="btn green_btn" type="submit" value="Submit"><i class="glyphicon glyphicon-shopping-cart"></i></button>
-
                           </form>
                           <!--<a href="{{ product.url }}" class="btn green_btn"><i class="glyphicon glyphicon-shopping-cart"></i></a>-->
                           <a href="{{ product.url }}" class="btn blue_btn">LEARN MORE</a>
                         </div>
                     </div>
 					</div>
-                
+
                 {% endfor %}
-              	<div class="clearfix visible-xs-block"></div>                
-            {% endif %}            
+              	<div class="clearfix visible-xs-block"></div>
+            {% endif %}
             </div>
             {% if collection.products.size != 0 %}
           	<div class="row">
@@ -128,10 +213,101 @@
               {% endif %}
               </div>
           	</div>
-            {% endif %}  
+            {% endif %}
         </div>
     </div>
 </div>
+
 {% endpaginate %}
 
 {% include 'reviews' %}
+
+<div class="which_language">
+  <div class="container">
+    <div class="row">
+      <h2>Which language do you want to speak?</h2>
+      <div class='col-md-2'></div>
+      <div class='col-md-4'>
+        <div class='green_checkmark'>
+            {{ 'checkmark.png' | asset_url | img_tag }}
+            <p>Lorem ipsum dolor sit amet, consec tetur adipiscing elit.</p>
+        </div>
+        <div class='green_checkmark'>
+            {{ 'checkmark.png' | asset_url | img_tag }}
+            <p>Lorem ipsum dolor sit amet, consec tetur adipiscing elit.</p>
+        </div>
+        <div class='green_checkmark'>
+            {{ 'checkmark.png' | asset_url | img_tag }}
+            <p>Lorem ipsum dolor sit amet, consec tetur adipiscing elit.</p>
+        </div>
+        <div class='green_checkmark'>
+            {{ 'checkmark.png' | asset_url | img_tag }}
+            <p>Lorem ipsum dolor sit amet, consec tetur adipiscing elit.</p>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class='dropdown' style='margin-bottom: 0;'>
+          <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-expanded="false">
+            <a class='hero_french' href='/products/assimil-french-with-ease-super-pack'>French</a>
+            <span class="caret"></span>
+          </button>
+          <div class='dropdown_book_images'>
+            {{ 'french_img.png' | asset_url | img_tag: '', 'French_book books' }} {{ 'spanish_img.png' | asset_url | img_tag: '', 'Spanish_book books' }}
+            <div class="price_french">
+              <p class='orange_price'><sup>$</sup>74.99</p>
+              <p class='regular_price'>Regularly <span>$124.99</span></p>
+            </div>
+            {% for product in collection.products %}
+            {{ product.metafields.test.testing }}
+                <div class="price" data-title='{{ product.title}}'>
+                  <p class='orange_price'><sup>$</sup>{{ product.price | money_without_currency }}</p>
+                  <p class='regular_price'>Regularly <span>{{ product.compare_at_price_max | money }}</span></p>
+                </div>
+            {% endfor %}
+          </div>
+          <ul class="dropdown-menu second_menu" aria-labelledby="dropdownMenu1">
+            {% for link in linklists.top-languages.links %}
+              <li><a class='hero_french {{link.title}}' data-title='{{ link.object.title }}' data-link='{{ link.url }}'>{{ link.title }}</a></li>
+            {% endfor %}
+          </ul>
+        </div>
+        <a class='im_ready' href='/products/assimil-french-with-ease-super-pack'>I'm Ready To Learn</a>
+        <div class='satisfied'>{{ '100satisfaction.png' | asset_url | img_tag: '', 'satisfaction_image' }} <p>30-day money-back guarantee</p></div>
+      </div>
+      <div class="col-md-2"></div>
+    </div>
+  </div>
+</div>
+<script type='text/javascript'>
+    $(function() {
+      $(".second_menu").on('click', 'li a', function() {
+          $('.dropdown_book_images').children('.books').css('display', 'none');
+          $('.dropdown_book_images').children('.prices').css('display', 'none');
+          var span = '<span class="caret"></span>';
+          $(".btn:first-child").html($(this).parent().html() + span);
+          var link = $(this).attr('data-link')
+          var title = $(this).attr('data-title')
+          $('.second_dropdown').attr('href', link);
+          var name = $(this).html();
+          $('.' + name + '_book').css('display', 'block');
+          var contents = $(".btn:first-child").attr('data-title');
+          $('.price').children().css('display', 'none');
+          $('.price_french').css('display', 'none');
+          $('div[data-title$='+'"'+title+'"'+']').css('display', 'block');
+          $('div[data-title$='+'"'+title+'"'+']').children().css('display', 'block');
+      });
+        jQuery(document).ready(function(jQuery) {
+            jQuery(document).delegate('*[data-toggle="lightbox"]:not([data-gallery="navigateTo"])', 'click', function(event) {
+                event.preventDefault();
+                return jQuery(this).ekkoLightbox({
+                    onShown: function() {},
+                    onNavigate: function(direction, itemIndex) {
+                        if (window.console) {
+                            return console.log('Navigating ' + direction + '. Current item: ' + itemIndex);
+                        }
+                    }
+                });
+            });
+        });
+    });
+</script>

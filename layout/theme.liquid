@@ -3,7 +3,7 @@
 <head>
   <!-- v3.4.2 -->
 
-{% comment %} 
+{% comment %}
   <title>
 	{{ page_title }}{% if current_tags %}{% assign meta_tags = current_tags | join: ', ' %} &ndash; {{ 'general.meta.tags' | t: tags: meta_tags }}{% endif %}{% if current_page != 1 %} &ndash; {{ 'general.meta.page' | t: page: current_page }}{% endif %}{% unless page_title contains shop.name %} &ndash; {{ shop.name }}{% endunless %}
   </title>
@@ -11,9 +11,9 @@
   	<meta name="description" content="{% comment %}{{ page_description | escape }} {% endcomment %}" />
   {% endif %}
 {% endcomment %}
-  
+
   {% include 'pluginseo' %}
-  
+
   <link rel="canonical" href="{{ canonical_url }}" />
 
   <meta charset="utf-8" />
@@ -27,7 +27,7 @@
   {% include 'twitter-card' %}
 
 {{ 'styles.css' | asset_url | stylesheet_tag }}
-{{ 'bootstrap.min.css' | asset_url | stylesheet_tag }}  
+{{ 'bootstrap.min.css' | asset_url | stylesheet_tag }}
 {{ 'owl.carousel.min.css' | asset_url | stylesheet_tag }}
 {{ 'jquery.bxslider.css' | asset_url | stylesheet_tag }}
 <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -58,10 +58,10 @@ window.jQuery || document.write("<script src='{{ 'jquery-1.8.1.min.js' | global_
 // ]]>
 </script>
 <script src="//cdn.optimizely.com/js/7921061228.js"></script>
-{{ 'bootstrap.min.js' | asset_url | script_tag }} 
+{{ 'bootstrap.min.js' | asset_url | script_tag }}
 {{ 'owl.carousel.min.js' | asset_url | script_tag }}
-{{ 'jquery.bxslider.min.js' | asset_url | script_tag }} 
-{{ 'jquery.nivo.slider.pack.js' | asset_url | script_tag }}  
+{{ 'jquery.bxslider.min.js' | asset_url | script_tag }}
+{{ 'jquery.nivo.slider.pack.js' | asset_url | script_tag }}
 {{ 'fancybox.js' | asset_url | script_tag }}
 {{ 'base.js' | asset_url | script_tag }}
 {{ 'ekko-lightbox.js' | asset_url | script_tag }}
@@ -88,13 +88,13 @@ $(function($){
       e.preventDefault();
       //Disable the add button until this process is over
       $(e.target).find('.addbutton').attr('disabled', true).addClass('disabled');
-      //Add the item to your cart      
+      //Add the item to your cart
       Shopify.addItemFromForm($(this).attr('id'));
       if($(this).hasClass('footer_addtocart')){
         window.location.href="/cart";
-      }      
+      }
     });
-    
+
     //Function to display a popup message after adding to cart
     $.extend({
       shopAddPopup : function(options) {
@@ -130,7 +130,7 @@ $(function($){
        //Show friendly popup
        $.shopAddPopup({title: '', message: line_item.title + ' ' + {{ 'products.general.added_to_cart' | t | json }}, positionElement: $addedButton});
      }
-     
+
      //Override
      Shopify.onError = function(XMLHttpRequest, textStatus) {
        //Fetch button that triggered this and make it usable again
@@ -142,9 +142,9 @@ $(function($){
          $.shopAddPopup({title: data.message, message: data.description, positionElement: $addedButton});
        } else {
          $.shopAddPopup({message: Shopify.fullMessagesFromErrors(data).join('; '), positionElement: $addedButton});
-       }  
+       }
      };
-     
+
      //Override
      Shopify.onCartUpdate = function(cart) {
        $('.cartitems .count').html(cart.item_count);
@@ -168,12 +168,12 @@ $(function($){
 $(function() {if (window.PIE) {$('.social-icons a').each(function() {PIE.attach(this);});}});
 </script>
 <![endif]-->
-  
+
 {{ content_for_header }}
-  
+
   <link rel="shortcut icon" href="{{ 'favicon.ico' | asset_url }}" type="image/x-icon" />
 
-  
+
   <!-- Google Code for Remarketing Tag -->
 <!--------------------------------------------------
 Remarketing tags may not be associated with personally identifiable information or placed on pages related to sensitive categories. See more information and instructions on how to setup the tag on: http://google.com/ads/remarketingsetup
@@ -192,7 +192,7 @@ var google_remarketing_only = true;
 <img height="1" width="1" style="border-style:none;" alt="" src="//googleads.g.doubleclick.net/pagead/viewthroughconversion/868232543/?guid=ON&amp;script=0"/>
 </div>
 </noscript>
-  
+
   <!-- Hotjar Tracking Code for https://www.optilingo.com/ -->
 <script>
     (function(h,o,t,j,a,r){
@@ -208,7 +208,7 @@ var google_remarketing_only = true;
 
 <script>
 /* Begin Discount Autofill Code */
-/* Read the Query String value from the URL */    
+/* Read the Query String value from the URL */
 /* Link: http://stackoverflow.com/a/2880929 - Notes: No clue how this regex stuff works. Probably fairy magic.  */
     var urlParams;
     (window.onpopstate = function () {
@@ -223,7 +223,7 @@ var google_remarketing_only = true;
     urlParams[decode(match[1])] = decode(match[2]);
     })();
 
-/* If the value of the hidden discount input field is blank, undefined or null then set the contents of localstorage discount to be the result of our Query String function above */    
+/* If the value of the hidden discount input field is blank, undefined or null then set the contents of localstorage discount to be the result of our Query String function above */
     if ($("#discount_input").val() == ('' || undefined || null || 'undefined')) {
     /* Set sessionStorage variable "discount" to the result of our Query string function above */
        sessionStorage.setItem("discount", urlParams["discount"]);
@@ -234,7 +234,7 @@ var google_remarketing_only = true;
     else if ($("#discount_input").val() != urlParams["discount"]) {
        sessionStorage.removeItem("discount");
        sessionStorage.setItem("discount", urlParams["discount"]);
-    }    
+    }
 /* End Discount Autofill Code */
 </script>
 
@@ -262,21 +262,21 @@ var google_remarketing_only = true;
   </span>
   {% endif %}
   {% endcapture %}
-  
+
   <div id="wrapthewrap">
-    <!--<div id="wrap" class="clearfix">-->    
+    <!--<div id="wrap" class="clearfix">-->
     <div class="green-bar">
       <p><strong>40% Off MSRP + Free Shipping at Checkout.</strong> 30-Day Money Back Guarantee.</p>
        <img class='navbar-close' src="{{ 'close.png' | asset_url }}" alt="{{ shop.name }}" />
-            </div>
+    </div>
       <!--header sction-->
         <div class="header_wrap" id="header">
           <div class="container">
             <div class="row">
-              <div class="col-md-12">                
+              <div class="col-md-12">
                 <div id="mobile-header">
                   <a href="#" class="cover-all toggle-mobile-menu" style="display: none;"><i class="fa fa-times" aria-hidden="true"></i></a>
-                  <button id="toggle-mobile-menu">Menu<span class="s1"></span><span class="s2"></span><span class="s3"></span></button>                    
+                  <button id="toggle-mobile-menu">Menu<span class="s1"></span><span class="s2"></span><span class="s3"></span></button>
                   <ul class="nav">
                         {% assign firstliclass = ' class="first"' %}
                         {% for link in linklists.main-menu.links %}
@@ -372,43 +372,18 @@ var google_remarketing_only = true;
             </div>
           </div>
         </div>
-        <!--header sction-->     
-        
+        <!--header sction-->
+
         {% if template == 'list-collections' %}
         {% include 'collection-listing' %}
         {% else %}
         {{ content_for_layout }}
         {% endif %}
-            
-        
-        
-        <!--footer section--> 
+
+
+
+        <!--footer section-->
         <div class="footer" id="footer">
-            <div class="ftr_top">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-sm-6">
-                            <div class="ftr_lt">
-                                {{settings.get_started_left_content}}
-                            </div>
-                        </div>
-                        <div class="col-sm-6">
-                            <div class="ftr_box_rt">
-                              <div class="ftr_box_rt_top"><h2>{{settings.get_started_right_content_upper}}</h2></div>
-                              <div class="ftr_box_rt_btm"><p>{{settings.get_started_right_content_middle}}</p>
-                                
-                              <a href="/collections/all" class="btn green_btn">Get Started Now</a><!--</div>
-                              <form action="/cart/add" method="post" class="footer_addtocart" id="{{all_products[settings.get_started_right_content_product].id}}">
-                                <input type="hidden" name="id" value="{{ all_products[settings.get_started_right_content_product].selected_or_first_available_variant.id }}" />
-                                <button type="submit" class="btn green_btn" name="">Get Started Now</button>
-                                <input type="hidden" name="quantity" class="650" id="quantity" value="1"/>
-                              </form> -->
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-          </div>
             <div class="ftr_btm">
                 <div class="container">
                     <div class="row">
@@ -425,8 +400,7 @@ var google_remarketing_only = true;
                           </div>
                             <div class="copyrht">{{settings.copyright_text}}</div>
                         </div>
-                      <div class="col-sm-6 text-right" style="margin-top:15px;">
-                       Follow Us:
+                      <div class="col-sm-6 text-right">
                         <a href="https://facebook.com/optilingo"><i class="fa fa-facebook-square fa-2x social"></i></a>
 	            <a href="https://twitter.com/optilingo"><i class="fa fa-twitter-square fa-2x social"></i></a>
 
@@ -438,7 +412,7 @@ var google_remarketing_only = true;
         <!--footer section-->
     <!--</div>-->
   </div><!-- #wrapthewrap -->
- 
+
   <!-- Tabs -->
   <script>(function(a){a.fn.willtabs=function(c){var b={
   tabTextColour:"#333",

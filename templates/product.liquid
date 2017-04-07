@@ -27,8 +27,8 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-6">
-                    <div class="product_detils_imgbox">                           
-                            
+                    <div class="product_detils_imgbox">
+
                             {% if product.images.size > 0 %}
                             <div id="custom-pag-place"></div>
                             <div id="owl-demo" class="owl-carousel owl-theme">
@@ -39,20 +39,20 @@
                                 {% endfor %}
                             </div>
                             {% endif %}
-                        
+
                     </div>
                 </div>
                 <div class="col-md-6">
                     <div class="productdetail_rt">
                         <h1>{{ product.title }}</h1>
-                        <div class="price"> 
+                        <div class="price">
                           {% if product.compare_at_price_max > product.price %}<span class="reducedfrom">{{ product.compare_at_price_max | money }}</span>{% endif %}
                           <span class="amount">{% if product.price_varies %}<span class="from">{{ 'products.general.from' | t }} </span>{% endif %}{{ product.price | money }}</span>
                         </div>
                         <form action="/cart/add" method="post" id="{{ product.id }}">
                             <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}" />
                             <div class="prod_quantity">
-                               <label for="quantity">Quantity</label>   
+                               <label for="quantity">Quantity</label>
                                <select name="quantity" id="quantity">
                                  <option>1</option>
                                  <option>2</option>
@@ -64,9 +64,9 @@
                                  <option>8</option>
                                  <option>9</option>
                                  <option>10</option>
-                               </select>                      
+                               </select>
                             </div>
-                            
+
                             <button type="submit">Add to cart <i class="glyphicon glyphicon-shopping-cart"></i></button>
                         </form>
                         <div class="prod_description">
@@ -76,11 +76,11 @@
                 </div>
             </div>
         </div>
-    </div>    
-    <div class="clearit"></div>    
+    </div>
+    <div class="clearit"></div>
   {% include 'related-products' %}
 </div>
-<!--content sction--> 
+<!--content sction-->
 <div class="inner_wrap">
 	<div class="container">
     	<div class="row">
@@ -93,7 +93,7 @@
                         <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}" />
                         <button type="submit" name="">Add to cart <i class="glyphicon glyphicon-shopping-cart"></i></button>
                         <div class="prod_quantity">
-                           <label for="quantity">Quantity</label>   
+                           <label for="quantity">Quantity</label>
                                <select name="quantity" id="quantity">
                                  <option>1</option>
                                  <option>2</option>
@@ -105,10 +105,10 @@
                                  <option>8</option>
                                  <option>9</option>
                                  <option>10</option>
-                               </select>                      
+                               </select>
                             </div>
                         </form>
-                     <div class="clearfix"></div>   
+                     <div class="clearfix"></div>
                     </div>
                 </div>
             </div>
@@ -124,7 +124,7 @@
                         <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}" />
                         <button type="submit" name="">Add to cart <i class="glyphicon glyphicon-shopping-cart"></i></button>
                         <div class="prod_quantity">
-                           <label for="quantity">Quantity</label>   
+                           <label for="quantity">Quantity</label>
                                <select name="quantity" id="quantity">
                                  <option>1</option>
                                  <option>2</option>
@@ -136,20 +136,20 @@
                                  <option>8</option>
                                  <option>9</option>
                                  <option>10</option>
-                               </select>                      
+                               </select>
                             </div>
                         </form>
-                     <div class="clearfix"></div>   
+                     <div class="clearfix"></div>
                     </div>
                         </div>
                     </div>
                     <div class="col-sm-6">
                        	<div class="lrn_img">
-                          {% if product.metafields.learnimage.learnimage == 'learnimage'  or product.metafields.learnimage.learnimage == '' %}                          
+                          {% if product.metafields.learnimage.learnimage == 'learnimage'  or product.metafields.learnimage.learnimage == '' %}
                           	<img src="{{ 'learn_image.png' | asset_url }}" alt="">
                           {% else %}
                           	<img src="{{ product.metafields.learnimage.learnimage }}" alt="">
-                          {% endif %} 
+                          {% endif %}
                         </div>
                     </div>
                 </div>
@@ -169,7 +169,7 @@
                         <h4>Review title is a title like this.</h4>
                         <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum sit amet ex turpis. Pellentesque ut lectus efficitur, varius quam eu, ultricies ante. Ut finibus hendrerit sapien at condimentum. Phasellus id dapibus enim. Cras ut sem non lectus tristique congue sed at lectus. Aenean aliquet ut nunc eget semper. Suspendisse porta ligula vel cursus cursus. Vestibulum rhoncus finibus neque sit amet imperdiet. Etiam posuere justo eu quam placerat elementum. Praesent faucibus odio eu nunc faucibus porttitor. Vivamus finibus iaculis purus, at tristique nisi ullamcorper eget.</p>
                     </div>
-                    
+
                     <div class="customer_reviews">
                     	<div class="rating_top">
                         	<ul>
@@ -181,9 +181,9 @@
                         <h4>Review title is a title like this.</h4>
                         <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum sit amet ex turpis. Pellentesque ut lectus efficitur, varius quam eu, ultricies ante. Ut finibus hendrerit sapien at condimentum. Phasellus id dapibus enim. Cras ut sem non lectus tristique congue sed at lectus. Aenean aliquet ut nunc eget semper. Suspendisse porta ligula vel cursus cursus. Vestibulum rhoncus finibus neque sit amet imperdiet. Etiam posuere justo eu quam placerat elementum. Praesent faucibus odio eu nunc faucibus porttitor. Vivamus finibus iaculis purus, at tristique nisi ullamcorper eget.</p>
                     </div>-->
-                  	<div id="shopify-product-reviews" data-id="{{product.id}}">{{ product.metafields.spr.reviews }}</div>               	
-                  	
-                  
+                  	<div id="shopify-product-reviews" data-id="{{product.id}}">{{ product.metafields.spr.reviews }}</div>
+
+
                 </div>
             </div>
         </div>
@@ -202,7 +202,7 @@ $( window ).load(function() {
         singleItem: true,
         afterInit: afterOWLinit, // do some work after OWL init
         afterUpdate : afterOWLinit
-    });    
+    });
     function afterOWLinit() {
         // adding A to div.owl-page
         $('.owl-controls .owl-page').append('<a class="item-link"/>');
